@@ -1,0 +1,140 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+
+
+    <title>DistClient</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <!-- IMPORT STYLESHEETS -->
+    <link rel="Stylesheet" type="text/css" href="css/StyleSheet.css" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<!--<link rel="stylesheet" type="text/css" href="css/demo.css" />-->
+	<link rel="stylesheet" type="text/css" href="css/dragdealer.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+  	<script src="js/modernizr.custom.js"></script>
+
+
+</head>
+<body>
+    <form id="form1" runat="server">
+      
+    <div class="container">
+        
+			<header id="header" class="codrops-header">
+				<span class="message">This mobile version does not have the slideshow switch</span>
+				<!--<button class="slider-switch">Switch view</button>-->
+			</header>
+			
+        <div id="slideshow" class="dragslider">
+            
+				<section class="img-dragger img-dragger-large dragdealer">
+					<div class="handle">
+						<div class="slide" data-content="content-1">
+							<div class="img-wrap">
+                                <asp:ContentPlaceHolder id="week0" runat="server">
+                                </asp:ContentPlaceHolder>
+							</div>
+							<h2></h2>
+							<button class="content-switch">Event view</button>
+						</div>
+						<div class="slide" data-content="content-2">
+							<div class="img-wrap">
+                                <asp:ContentPlaceHolder id="week1" runat="server">
+                                </asp:ContentPlaceHolder>
+							</div>
+							<h2></h2>
+							<button class="content-switch">Event view</button>
+						</div>
+                        <div class="slide" data-content="content-2">
+							<div class="img-wrap">
+                                <asp:ContentPlaceHolder id="week2" runat="server">
+                                </asp:ContentPlaceHolder>
+							</div>
+							<h2>Week 2</h2>
+							<button class="content-switch">Event view</button>
+						</div>
+					</div>
+				</section>
+
+        <section class="pages">
+					<div class="content" data-content="content-1">
+						<h2>Event View<span>Event list</span></h2>
+                        <ul>
+                            <li>Event</li>
+                            <li>Event</li>
+                            <li>Event</li>
+                            <li>Event</li>
+                            <li>Event</li>
+                            <li>Event</li>
+                            <li>Event</li>
+                        </ul>
+					</div>
+        </section>
+    </div>
+        </div>
+
+        <script src="js/dragdealer.js"></script>
+		<script src="js/classie.js"></script>
+		<script src="js/dragslideshow.js"></script>
+		<script>
+			(function() {
+
+		//		var overlay = document.getElementById( 'overlay' ),
+		//			overlayClose = overlay.querySelector( 'button' ),
+					header = document.getElementById( 'header' )
+			        //switchBtnn = header.querySelector('button.slider-switch'),
+                    switchBtnn = document.getElementById('click')
+					toggleBtnn = function() {
+						if( slideshow.isFullscreen ) {
+							classie.add( switchBtnn, 'view-maxi' );
+						}
+						else {
+							classie.remove( switchBtnn, 'view-maxi' );
+						}
+					},
+					toggleCtrls = function() {
+						if( !slideshow.isContent ) {
+							classie.add( header, 'hide' );
+						}
+					},
+					toggleCompleteCtrls = function() {
+						if( !slideshow.isContent ) {
+							classie.remove( header, 'hide' );
+						}
+					},
+					slideshow = new DragSlideshow( document.getElementById( 'slideshow' ), { 
+						// toggle between fullscreen and minimized slideshow
+						onToggle : toggleBtnn,
+						// toggle the main image and the content view
+						onToggleContent : toggleCtrls,
+						// toggle the main image and the content view (triggered after the animation ends)
+						onToggleContentComplete : toggleCompleteCtrls
+					}),
+					toggleSlideshow = function() {
+						slideshow.toggle();
+						toggleBtnn();
+					},
+					closeOverlay = function() {
+						classie.add( overlay, 'hide' );
+					};
+
+				// toggle between fullscreen and small slideshow
+					switchBtnn.addEventListener('click', toggleSlideshow);
+                   
+				// close overlay
+			    // overlayClose.addEventListener( 'click', closeOverlay );
+
+
+			}());
+		</script>
+
+
+    </form>
+</body>
+</html>
