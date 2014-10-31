@@ -14,7 +14,6 @@
     <!-- IMPORT STYLESHEETS -->
     <link rel="Stylesheet" type="text/css" href="css/StyleSheet.css" />
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-	<!--<link rel="stylesheet" type="text/css" href="css/demo.css" />-->
 	<link rel="stylesheet" type="text/css" href="css/dragdealer.css" />
 	<link rel="stylesheet" type="text/css" href="css/component.css" />
   	<script src="js/modernizr.custom.js"></script>
@@ -23,14 +22,23 @@
 </head>
 <body>
     <form id="form1" runat="server">
-      
+    <div id="menu-side">
+            <div id="wrap">
+
+                <p> Username:</p>
+                <asp:TextBox ID="txtuser" runat="server"></asp:TextBox>
+
+                <p> Password:</p>
+                <asp:TextBox ID="txtpass" runat="server"></asp:TextBox>
+
+                <asp:Button runat="server" Text="Login"/>
+
+            </div>
+    </div>
+    <button type="button" class="menu-button" onclick="toggle()"></button>
     <div class="container">
         
-			<header id="header" class="codrops-header">
-				<span class="message">This mobile version does not have the slideshow switch</span>
-				<!--<button class="slider-switch">Switch view</button>-->
-			</header>
-			
+
         <div id="slideshow" class="dragslider">
             
 				<section class="img-dragger img-dragger-large dragdealer">
@@ -78,62 +86,11 @@
         </section>
     </div>
         </div>
-
         <script src="js/dragdealer.js"></script>
 		<script src="js/classie.js"></script>
 		<script src="js/dragslideshow.js"></script>
-		<script>
-			(function() {
-
-		//		var overlay = document.getElementById( 'overlay' ),
-		//			overlayClose = overlay.querySelector( 'button' ),
-					header = document.getElementById( 'header' )
-			        //switchBtnn = header.querySelector('button.slider-switch'),
-                    switchBtnn = document.getElementById('click')
-					toggleBtnn = function() {
-						if( slideshow.isFullscreen ) {
-							classie.add( switchBtnn, 'view-maxi' );
-						}
-						else {
-							classie.remove( switchBtnn, 'view-maxi' );
-						}
-					},
-					toggleCtrls = function() {
-						if( !slideshow.isContent ) {
-							classie.add( header, 'hide' );
-						}
-					},
-					toggleCompleteCtrls = function() {
-						if( !slideshow.isContent ) {
-							classie.remove( header, 'hide' );
-						}
-					},
-					slideshow = new DragSlideshow( document.getElementById( 'slideshow' ), { 
-						// toggle between fullscreen and minimized slideshow
-						onToggle : toggleBtnn,
-						// toggle the main image and the content view
-						onToggleContent : toggleCtrls,
-						// toggle the main image and the content view (triggered after the animation ends)
-						onToggleContentComplete : toggleCompleteCtrls
-					}),
-					toggleSlideshow = function() {
-						slideshow.toggle();
-						toggleBtnn();
-					},
-					closeOverlay = function() {
-						classie.add( overlay, 'hide' );
-					};
-
-				// toggle between fullscreen and small slideshow
-					switchBtnn.addEventListener('click', toggleSlideshow);
-                   
-				// close overlay
-			    // overlayClose.addEventListener( 'click', closeOverlay );
-
-
-			}());
-		</script>
-
+        <script src="js/functions.js"></script>
+        <script src="js/toggle-menu.js"></script>
 
     </form>
 </body>

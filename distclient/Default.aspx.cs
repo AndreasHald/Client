@@ -14,7 +14,7 @@ using System.Text;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Net.Sockets;
-using System.IO; 
+using System.IO;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -33,99 +33,24 @@ public partial class _Default : System.Web.UI.Page
             int week = 1;
             createtable(week);
         }
+        //user u = new user();
+        //encryption crypt = new encryption();
+        //connection conn = new connection();
         
-       
-            //ConnectToServer();
+        //u.overallID = "logIn";
+        //u.email = "admin@admin.dk";
+        //u.password = "d6YSr320JnLXlp8YYxUcNQ==";
+        //u.isAdmin = false;
+
+        //String jsonstring = JsonConvert.SerializeObject(u);
+
+        //String output = crypt.EncryptDecrypt(jsonstring);
         
-    }
+        
+        //Response.Write(conn.connect(output));
 
-    public void ConnectToServer()
-    {
-        String server = "10.0.0.32"; // Server name or IP address
-        String message = "hej";
-        int port = 6789;
 
-        // Convert input String to bytes
-        byte[] byteBuffer = Encoding.ASCII.GetBytes(message);
-
-        TcpClient client = null;
-        NetworkStream netStream = null;
-       
-        try
-        {
-            // Create socket that is connected to server on specified port
-            client = new TcpClient(server, port);
-
-            Response.Write("Connected to server... sending echo string");
-
-            netStream = client.GetStream();
-
-            // Send the encoded string to the server
-            netStream.Write(byteBuffer, 0, byteBuffer.Length);
-
-            Response.Write("Sent {0} bytes to server..." + byteBuffer.Length);
-
-            int totalBytesRcvd = 0; // Total bytes received so far
-            int bytesRcvd = 0; // Bytes received in last read
-
-            // Receive the same string back from the server
-            while (totalBytesRcvd < byteBuffer.Length)
-            {
-                if ((bytesRcvd = netStream.Read(byteBuffer, totalBytesRcvd,
-                byteBuffer.Length - totalBytesRcvd)) == 0)
-                {
-                    Response.Write("Connection closed prematurely.");
-                    break;
-                }
-                totalBytesRcvd += bytesRcvd;
-            }
-            Response.Write("Received {0} bytes from server: {1}" + totalBytesRcvd +
-            Encoding.ASCII.GetString(byteBuffer, 0, totalBytesRcvd));
-
-        }
-        catch (Exception e)
-        {
-            Response.Write(e.Message);
-        }
-        finally
-        {
-            netStream.Close();
-            client.Close();
-        }
-    }
-
-   private static byte[] ReadFully(string input)
-   {
-            FileStream sourceFile = new FileStream(input, FileMode.Open); //Open streamer
-            BinaryReader binReader = new BinaryReader(sourceFile);
-            byte[] output = new byte[sourceFile.Length]; //create byte array of size file
-            for (long i = 0; i < sourceFile.Length; i++)
-                output[i] = binReader.ReadByte(); //read until done
-            sourceFile.Close(); //dispose streamer
-            binReader.Close(); //dispose reader
-            return output;
-   }
-
-    public static string EncryptDecrypt(string textToEncrypt, int encryptionKey)
-    {
-        StringBuilder inSb = new StringBuilder(textToEncrypt);
-
-        StringBuilder outSb = new StringBuilder(textToEncrypt.Length);
-
-        char c;
-
-        for (int i = 0; i < textToEncrypt.Length; i++)
-        {
-
-            c = inSb[i];
-
-            c = (char)(c ^ encryptionKey);
-
-            outSb.Append(c);
-
-        }
-
-        return outSb.ToString();
+        
     }
 
     public void createactivity()
@@ -203,6 +128,7 @@ public partial class _Default : System.Web.UI.Page
         rweek1.DataSource = dt;
         rweek1.DataBind();
 
+        
 
 
     }
@@ -216,9 +142,9 @@ public partial class _Default : System.Web.UI.Page
         }
         public void InstantiateIn(System.Web.UI.Control container)
         {
+   
             PlaceHolder ph = new PlaceHolder();
             string host = HttpContext.Current.Request.Url.AbsolutePath;
-
             List<String> days = new List<string>();
             days.Add("Monday");
             days.Add("Tuesday");
