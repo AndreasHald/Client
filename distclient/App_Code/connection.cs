@@ -31,12 +31,12 @@ public class connection
 
         TcpClient client = null;
         NetworkStream ns = null;
-       
+
         try
         {
             // Create socket that is connected to server on specified port
             client = new TcpClient(server, port);
-
+            //client.SendTimeout = 1000000000;
             //Response.Write("Connected to server... sending echo string");
 
             ns = client.GetStream();
@@ -48,12 +48,18 @@ public class connection
             ns.Flush();
 
             // Receive the same string back from the server
-            byte [] data = new byte[1024];
+            byte[] data = new byte[2048];
+
+
+            System.Threading.Thread.Sleep(5000);
             int recv = ns.Read(data, 0, data.Length);
             //Response.Write("Received {0} bytes from server: {1}" + totalBytesRcvd +
             String reply = Encoding.ASCII.GetString(data, 0, recv);
-            return reply;
 
+            //ns.Close();
+            //client.Close();
+
+            return reply;
         }
         catch (Exception e)
         {
@@ -62,8 +68,7 @@ public class connection
         }
         finally
         {
-            ns.Close();
-            client.Close();
+
         }
     }
 }

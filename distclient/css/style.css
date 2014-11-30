@@ -1,0 +1,129 @@
+/* --- BASIC START --- */
+	body{
+		margin:0;
+	}
+
+	h1, h2{
+		color: #c24033;
+		font-weight: 500;
+	}
+
+	h2{
+		font-size: 20px;
+	}
+
+	.header {
+		width: 100%;
+		padding: 30px 5%;
+		text-align: center;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 40px;
+		background: #ff4c38;
+		color:#fff;
+
+	}
+	.sidebar {
+		width: 15%;
+		float:left;
+		height: 900px;
+		min-height: 500px;
+		margin: 4px 0px 0px 0px;
+		text-align: center;
+		background: #fff;
+		overflow: hidden;
+		font-family: 'Open Sans', sans-serif;
+	}	
+	.calendarbody {
+		width: 85%;
+		height: 900px;
+		min-height: 500px;
+		margin: 30px 0px 0px 0px;
+        margin-left:8%;
+		text-align: center;
+		background: #fff;
+		/*overflow: hidden;*/
+        margin-bottom:100px;
+		font-family: 'Open Sans', sans-serif;
+ 
+	}
+	.timebody {
+		color: #333;
+		width: 3%;
+		float: left;
+		text-align: right;
+		height: 100%;
+		min-width: 50px;
+	}
+	.timebody .time {
+		margin-bottom: 1px;
+		padding: 0 10px 0 0;
+		font-size: 13px;
+		position: relative;
+		height: 6.6667%;
+	}
+	.timebody .time:last-child {
+		border-bottom: 1px solid #ddd;
+	}
+	.weekdaybody {
+		background: #fff;
+		width: 13%;
+		float: left;
+		text-align: center;
+		height: 100%;
+		position: relative;
+
+		-webkit-transition: width .2s ease-out;
+		-moz-transition: width .2s ease-out;
+		-o-transition: width .2s ease-out;
+		transition: width .2s ease-out;
+	}
+	.weekdaybody:last-child {
+		border-right: 1px solid #ddd;
+	}
+	.weekdaybody .weekday {
+		color: #c24033;
+		border-bottom: 1px solid #ddd;
+		border-left: 1px solid #ddd;
+		padding: 0 10px 0 0;
+		font-size: 16px;
+		position: relative;
+		height: 59px;
+		text-transform: uppercase;
+		background: url(gfx/halfHourDivider.png) center center repeat-x;
+	}
+	.date {
+		font-size: 12px;
+		font-weight: 600;
+	}
+	.highlight {
+		background: #ededed !important;
+	}
+
+	/*.event {
+		 background-color: #c0392b; width: 100%; z-index:99; position: absolute;
+	}*/
+
+	.starttime {
+		display: none;
+	}
+
+	.duration {
+		display: none;
+	}
+	.no-bg{
+		background: none !important;
+		border-left: none !important;
+	}
+
+	.footer {
+		position:absolute;
+		bottom:0;
+		left:0;
+		height:30px;
+		background: #f5f5f5 ;
+		color: #999;
+		width: 100%;
+		line-height: 30px;
+		text-align: center;
+	}
+/* --- BASIC SLUT --- */

@@ -15,42 +15,69 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Net.Sockets;
 using System.IO;
+using System.Threading.Tasks;
 
 public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         String url = Request.QueryString["activityID"];
         if (url != null)
         {
             // CREATE ACTIVITY SPECIFIC TEMPLATE IF URL STRING
+            Session["activityID"] = url;
             createactivity();
         }
         else
         {
-            // CREATES TABLE USING MyTemplate
-            int week = 1;
-            createtable(week);
+
+            // PRINT LOGIN SCREEN
+
+
+
+            /************************
+             *****   FUNCTIONS  *****
+             ***********************/
+            
+            //encryptUserID ea = new encryptUserID(); VIRKER!
+
+            //getEvent ge = new getEvent(); VIRKER!
+
+            //deleteEvent de = new deleteEvent(); VIRKER!
+            //createEvent ce = new createEvent(); VIRKER!
+
+            //createCalendar cc = new createCalendar(); VIRKER!
+            //deleteCalendar dc = new deleteCalendar(); VIRKER!
+            
+            //String uid ="2";
+
+            //getCalendar gc = new getCalendar();
+            //String t = gc.dc(uid);
+           // Response.Write(t);
+            //System.Diagnostics.Debug.WriteLine(t);
+            if (Session["username"] != null && Session["password"] != null)
+            {
+
+                String usr = Session["username"].ToString();
+                String pass = Session["password"].ToString();
+
+                login l = new login();
+
+                if (l.authenticate(usr, pass))
+                {
+                        //createtable();
+                }
+                else
+                {
+                    Response.Write("you are not logged in");
+                }
+            }
+           
         }
-        //user u = new user();
-        //encryption crypt = new encryption();
-        //connection conn = new connection();
         
-        //u.overallID = "logIn";
-        //u.email = "admin@admin.dk";
-        //u.password = "d6YSr320JnLXlp8YYxUcNQ==";
-        //u.isAdmin = false;
-
-        //String jsonstring = JsonConvert.SerializeObject(u);
-
-        //String output = crypt.EncryptDecrypt(jsonstring);
-        
-        
-        //Response.Write(conn.connect(output));
 
 
-        
+
     }
 
     public void createactivity()
@@ -78,49 +105,76 @@ public partial class _Default : System.Web.UI.Page
         }
         public void InstantiateIn(System.Web.UI.Control container)
         {
+            getEvent ge = new getEvent();
+
+            ESObject0 obj = ge.getCBSEvents();
+            string host = HttpContext.Current.Request.Url.AbsolutePath;
+            _Default d = new _Default();
+            string u = Convert.ToString(d.Session["activityID"]);
             PlaceHolder ph = new PlaceHolder();
             switch (templateType)
             {
                 case ListItemType.Header:
-                    ph.Controls.Add(new LiteralControl("<div id='specevent'>"));
+                    ph.Controls.Add(new LiteralControl("<center id='specevent'>"));
                     ph.Controls.Add(new LiteralControl("<ul>"));
                     break;
                 case ListItemType.Item:
                     // PRINT EVENT SPECIFIC FUNCTIONS
-                    ph.Controls.Add(new LiteralControl("<li>"));
-                    ph.Controls.Add(new LiteralControl("Lecture:"));
-                    ph.Controls.Add(new LiteralControl("</li>"));
-                    ph.Controls.Add(new LiteralControl("<li>"));
-                    ph.Controls.Add(new LiteralControl("Virksomhedens Økonomiske Styring (3)"));
-                    ph.Controls.Add(new LiteralControl("</li>"));
-                    ph.Controls.Add(new LiteralControl("<li>"));
-                    ph.Controls.Add(new LiteralControl("Location: SP212"));
-                    ph.Controls.Add(new LiteralControl("</li>"));
+                    for (int g = 0; g < obj.events.Count(); g++)
+                    {
+                        if (obj.events[g].eventid.Equals(u))
+                        {
+                            ph.Controls.Add(new LiteralControl("<li>"));
+                            ph.Controls.Add(new LiteralControl("Type: " + obj.events[g].type));
+                            ph.Controls.Add(new LiteralControl("</li>"));
+                            ph.Controls.Add(new LiteralControl("<li>"));
+                            ph.Controls.Add(new LiteralControl("ID: " + obj.events[g].eventid));
+                            ph.Controls.Add(new LiteralControl("</li>"));
+                            ph.Controls.Add(new LiteralControl("<li>"));
+                            ph.Controls.Add(new LiteralControl("Title: " + obj.events[g].description));
+                            ph.Controls.Add(new LiteralControl("</li>"));
+                            ph.Controls.Add(new LiteralControl("<li>"));
+                            ph.Controls.Add(new LiteralControl("Location: " + obj.events[g].location));
+                            ph.Controls.Add(new LiteralControl("</li>"));
+                            ph.Controls.Add(new LiteralControl("<li>"));
+                            ph.Controls.Add(new LiteralControl("Start Time: " + obj.events[g].start[0] + " " + obj.events[g].start[2] + "/"+ obj.events[g].start[1] + " " + obj.events[g].start[3] + ":" +   obj.events[g].start[4]));
+                            ph.Controls.Add(new LiteralControl("</li>"));
+                            ph.Controls.Add(new LiteralControl("<li>"));
+                            ph.Controls.Add(new LiteralControl("End Time: " + obj.events[g].end[0] + " " +  obj.events[g].end[2] + "/" + obj.events[g].end[1] + " " + obj.events[g].end[3] + ":" + obj.events[g].end[4]));
+                            ph.Controls.Add(new LiteralControl("</li>"));
+                        }
+                    }
                     break;
                 case ListItemType.Footer:
                     ph.Controls.Add(new LiteralControl("</ul>"));
-                    ph.Controls.Add(new LiteralControl("</div>"));
+                    ph.Controls.Add(new LiteralControl("<br /> <a href='' onclick='goBack()'>Back</a>"));
+                    ph.Controls.Add(new LiteralControl("</center>"));
                     break;
             }
             container.Controls.Add(ph);
         }
     }
 
-    public void createtable(int week)
+    public void createtable()
     {
-        rweek.HeaderTemplate = new MyTemplate(ListItemType.Header);
-        rweek.ItemTemplate = new MyTemplate(ListItemType.Item);
-        rweek.FooterTemplate = new MyTemplate(ListItemType.Footer);
+        rweek.HeaderTemplate = new week1template(ListItemType.Header);
+        rweek.ItemTemplate = new week1template(ListItemType.Item);
+        rweek.FooterTemplate = new week1template(ListItemType.Footer);
 
-        rweek1.HeaderTemplate = new MyTemplate(ListItemType.Header);
-        rweek1.ItemTemplate = new MyTemplate(ListItemType.Item);
-        rweek1.FooterTemplate = new MyTemplate(ListItemType.Footer);
+        rweek1.HeaderTemplate = new week2template(ListItemType.Header);
+        rweek1.ItemTemplate = new week2template(ListItemType.Item);
+        rweek1.FooterTemplate = new week2template(ListItemType.Footer);
+
+        rweek2.HeaderTemplate = new week3template(ListItemType.Header);
+        rweek2.ItemTemplate = new week3template(ListItemType.Item);
+        rweek2.FooterTemplate = new week3template(ListItemType.Footer);
 
         DataTable dt = new DataTable("mydt");
-        dt.Columns.Add("day", typeof(string));
-        dt.Columns.Add("date", typeof(int));
-        dt.Columns.Add("time", typeof(int));
-        dt.Rows.Add(new string[3] { "Monday", "1", "8" });
+        dt.Columns.Add("1", typeof(int));
+        dt.Columns.Add("2", typeof(int));
+        dt.Columns.Add("3", typeof(int));
+        dt.Columns.Add("4", typeof(int));
+        dt.Rows.Add(new string[4] { "1", "1", "1", "1" });
 
         rweek.DataSource = dt;
         rweek.DataBind();
@@ -128,161 +182,11 @@ public partial class _Default : System.Web.UI.Page
         rweek1.DataSource = dt;
         rweek1.DataBind();
 
+        rweek2.DataSource = dt;
+        rweek2.DataBind();
+
         
 
 
     }
-
-    public class MyTemplate : System.Web.UI.ITemplate
-    {
-        System.Web.UI.WebControls.ListItemType templateType;
-        public MyTemplate(System.Web.UI.WebControls.ListItemType type)
-        {
-            templateType = type;
-        }
-        public void InstantiateIn(System.Web.UI.Control container)
-        {
-   
-            PlaceHolder ph = new PlaceHolder();
-            string host = HttpContext.Current.Request.Url.AbsolutePath;
-            List<String> days = new List<string>();
-            days.Add("Monday");
-            days.Add("Tuesday");
-            days.Add("Wednesday");
-            days.Add("Thursday");
-            days.Add("Friday");
-            days.Add("Saturday");
-            days.Add("Sunday");
-
-            List<String> times = new List<string>();
-            times.Add("8:00");
-            times.Add("9:00");
-            times.Add("10:00");
-            times.Add("11:00");
-            times.Add("12:00");
-            times.Add("13:00");
-            times.Add("14:00");
-            times.Add("15:00");
-            times.Add("16:00");
-            times.Add("17:00");
-            times.Add("18:00");
-
-            switch (templateType)
-            {
-                case ListItemType.Header:
-                    ph.Controls.Add(new LiteralControl("<table class='calstyle'>"));
-                    ph.Controls.Add(new LiteralControl("<th class='rowheader' colspan='8'>"));
-                    
-                    ph.Controls.Add(new LiteralControl(Convert.ToString(GetWeekNo(Gettoday()))));
-
-                    ph.Controls.Add(new LiteralControl("</th>"));
-                    ph.Controls.Add(new LiteralControl("<tr class='row'>"));
-                    ph.Controls.Add(new LiteralControl("<td>"));
-                    ph.Controls.Add(new LiteralControl("<a id='click'>Week View</a>"));
-                    ph.Controls.Add(new LiteralControl("</td>"));
-                    for (int i = 0; i < days.Count; i++)
-                    {
-                        ph.Controls.Add(new LiteralControl("<td>"));
-                        ph.Controls.Add(new LiteralControl(daysfromtoday(days[i])));
-                        ph.Controls.Add(new LiteralControl("<br />"));
-                        ph.Controls.Add(new LiteralControl(days[i]));
-                        
-                        ph.Controls.Add(new LiteralControl("</td>"));
-                    }
-                    ph.Controls.Add(new LiteralControl("</tr>"));
-                    break;
-                case ListItemType.Item:
-
-                    for (int o = 0; o < times.Count; o++)
-                    {
-                        ph.Controls.Add(new LiteralControl("<tr class='row'>"));
-                        for (int i = 0; i < 8; i++)
-                        {
-                            if (i == 0)
-                            {
-                                ph.Controls.Add(new LiteralControl("<td class='ctime'>"));
-                                ph.Controls.Add(new LiteralControl(times[o]));
-                            }
-                            else
-                            {
-                            // GET EVENTS
-                                ph.Controls.Add(new LiteralControl("<td>"));
-                                // i = DAY o = TIME
-                                if (i == 3 && o==3)
-                                {
-                                    ph.Controls.Add(new LiteralControl("<div class='event'>"));
-                                    ph.Controls.Add(new LiteralControl("<a href='"+ host + "?activityID=" + "1" + "'>"));
-                                    ph.Controls.Add(new LiteralControl("Lecture"));
-                                    ph.Controls.Add(new LiteralControl("<br />"));
-                                    ph.Controls.Add(new LiteralControl("VØS 3"));
-                                    ph.Controls.Add(new LiteralControl("</a>"));
-                                    ph.Controls.Add(new LiteralControl("</div>"));
-                                }
-                                else
-                                {
-                                    ph.Controls.Add(new LiteralControl("..."));
-
-                                }
-                            }
-                            ph.Controls.Add(new LiteralControl("</td>"));
-
-                        }
-                        ph.Controls.Add(new LiteralControl("</tr>"));
-                    }
-                    break;
-                case ListItemType.Footer:
-                    ph.Controls.Add(new LiteralControl("</table>"));
-                    break;
-            }
-            container.Controls.Add(ph);
-        }
-
-        public DateTime Gettoday()
-        {
-            DateTime date = DateTime.Now;
-            return date;
-        }
-
-        public int GetWeekNo(DateTime date)
-        {
-            
-            System.Globalization.CultureInfo cult_info = System.Globalization.CultureInfo.CreateSpecificCulture("da-DA  ");
-            System.Globalization.Calendar cal = cult_info.Calendar;
-            int weekNo = cal.GetWeekOfYear(date, cult_info.DateTimeFormat.CalendarWeekRule, cult_info.DateTimeFormat.FirstDayOfWeek);
-            return weekNo;
-        }
-
-
-        public String daysfromtoday(String days)
-        {
-            DateTime today = DateTime.Today;
-
-            //CultureInfo myCulture = new CultureInfo("da-DK");
-            //myCulture.DateTimeFormat.FirstDayOfWeek = DayOfWeek.Monday;
-            //System.Threading.Thread.CurrentThread.CurrentCulture = myCulture;
-
-                switch(days)
-                {
-                    case "Monday":
-                        return DateTime.Today.AddDays((DayOfWeek.Monday - today.DayOfWeek)).ToString("dd");
-                    case "Tuesday":
-                        return DateTime.Today.AddDays((DayOfWeek.Tuesday - today.DayOfWeek)).ToString("dd");
-                    case "Wednesday":
-                        return DateTime.Today.AddDays((DayOfWeek.Wednesday - today.DayOfWeek)).ToString("dd");
-                    case "Thursday":
-                        return DateTime.Today.AddDays((DayOfWeek.Thursday - today.DayOfWeek)).ToString("dd");
-                    case "Friday":
-                        return DateTime.Today.AddDays((DayOfWeek.Friday - today.DayOfWeek)).ToString("dd");
-                    case "Saturday":
-                        return DateTime.Today.AddDays((DayOfWeek.Saturday - today.DayOfWeek)).ToString("dd");
-                    case "Sunday":
-                        return DateTime.Today.AddDays(((DayOfWeek.Sunday - today.DayOfWeek)+7)).ToString("dd");
-                    default:
-                        return "error";
-                }
-    
-            }
-        }
-
 }
-

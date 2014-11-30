@@ -8,9 +8,9 @@ using System.Web;
 /// </summary>
 public class user
 {
-    public String overallID  { get; set; }
+    public String overallID { get; set; }
     public String email { get; set; }
     public String password { get; set; }
     public Boolean isAdmin { get; set; }
-
 }
+// vi skal serialize dette

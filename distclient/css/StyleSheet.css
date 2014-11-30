@@ -3,63 +3,56 @@
 }
 
 
-/* TABLE STYLE */
-.calstyle{
-    height:100%;
-    width:100%;
-    border:solid;
-    border-color:#ffffff;
-    border-width:1px;
-    border-collapse:collapse;
-    color:#000;
-    text-align:center;
-}
-
-/* TABLE ROWS */
-.row{
-    border:solid;
-    border-color:#ffffff;
-    border-width:1px;
-    background-color: #D7F5D7;
-}
-
-.row:nth-child(2n-1) {
-    background-color: #f5f5f5;
-}
-
-/* TABLE CELLS */
-.cell{
-    border-right:solid;
-    border-right-color:#ffffff;
-    border-right-width:1px;
-}
-
-.ctime
+.week 
 {
-    background-color: #2ea879;
-    border-top:none;
-    border-bottom:none;
-}
-
-.cell:hover 
-{
-    background-color: rgba(129,208,177,.3);
-}
-
-.rowheader {
-    background-color: #31bc86;
+    background-color: #ff4c38;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
+    height:55px;
+    text-align:center;
+    font-size:36px;
+    line-height:60px;
 }
 
 .event
 {
-    background-color:red;
-    height:100%;
-    width:100%;
-    vertical-align:top;
+    width:96%;
+    margin-left:2%;
+    font-size:70%;
+    z-index:99;
+    position:absolute;
 }
+
+#specevent
+{
+}
+
+#specevent ul
+{
+    list-style-type:none;
+}
+
+.eventtime
+{
+    width:100%;
+    background:rgba(255,255,255,0.2);
+    height:20px;
+    font-size:14px;
+}
+
+.event a
+{
+    color:white;
+    text-decoration:none;
+}
+
+.event a:visited
+{
+    color:white;
+    text-decoration:none;
+}
+
 #menu-side
 {
     z-index:999;
@@ -67,7 +60,7 @@
     display:block;
     height:100%;
     width:0%;
-    background-color:#808080;
+    background-color: rgba(228, 226, 226, 0.8);
     -webkit-transition: width 1s ease-in-out;
     -moz-transition: width 1s ease-in-out;
     -o-transition: width 1s ease-in-out;
