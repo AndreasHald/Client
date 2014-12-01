@@ -104,3 +104,32 @@
 .menu-button:hover {
 	opacity: 0.6;
 }
+
+
+#create_Calendar, #delete_Calendar, #create_Event, #delete_Event{
+    width:50%;
+    text-align:center;
+    vertical-align:middle;
+    height:50px;
+    padding-top:28px;
+    background-color: #ff4c38;
+}
+
+#create_Calendar:hover, #delete_Calendar:hover, #create_Event:hover, #delete_Event:hover{
+           background:rgba(255,255,255,0.2);
+    }
+
+#create_Calendar, #delete_Calendar, #create_Event, #delete_Event {     color:white; text-decoration:none;}
+/*#create_Calendar, #delete_Calendar, #create_Event, #delete_Event a:visited {     color:white; text-decoration:none;}*/
+
+#create_Calendar, #create_Event{
+    float:left;
+}
+
+#delete_Calendar, #delete_Event{
+    float:right;
+}
+
+#createCalendar, #deleteCalendar, #createEvent, #deleteEvent {
+    display:none;
+}

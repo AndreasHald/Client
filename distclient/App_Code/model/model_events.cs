@@ -15,5 +15,6 @@ public class customevents
     public String name { get; set; }
     public String text { get; set; }
     public String customevent { get; set; }
-    public String CalendarID { get; set; }
+    public String CalenderID { get; set; }
 }
+

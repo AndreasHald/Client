@@ -17,7 +17,7 @@ public class getEvent
         connection conn = new connection();
 
         e.overallID = "getEventInfo";
-        e.CalendarID = "1";
+        e.CalenderID = "1";
 
         String jsonstring = JsonConvert.SerializeObject(e);
 

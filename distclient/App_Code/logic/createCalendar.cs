@@ -9,17 +9,11 @@ using Newtonsoft.Json;
 /// </summary>
 public class createCalendar
 {
-	public String cc()
+	public String cc(calendar e)
 	{
-        calendar e = new calendar();
+
         encryption crypt = new encryption();
         connection conn = new connection();
-
-        e.overallID = "createCalender";
-        e.calenderName = "My Calendar";
-        e.userName = "anha13ao";
-        e.publicOrPrivate = 1;
- 
 
         String jsonstring = JsonConvert.SerializeObject(e);
 

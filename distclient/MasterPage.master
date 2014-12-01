@@ -20,6 +20,36 @@
 
   	<script src="js/modernizr.custom.js"></script>
 
+    <script>
+        function toggle_sub(x) {
+            if (x == 1) {
+                document.getElementById("createCalendar").style.display = "block";
+                document.getElementById("createEvent").style.display = "none";
+                document.getElementById("deleteCalendar").style.display = "none";
+                document.getElementById("deleteEvent").style.display = "none";
+            }
+            else if (x == 2) {
+                document.getElementById("createEvent").style.display = "block";
+                document.getElementById("createCalendar").style.display = "none";
+                document.getElementById("deleteCalendar").style.display = "none";
+                document.getElementById("deleteEvent").style.display = "none";
+            }
+            else if (x == 3) {
+                document.getElementById("deleteCalendar").style.display = "block";
+                document.getElementById("createCalendar").style.display = "none";
+                document.getElementById("createEvent").style.display = "none";
+                document.getElementById("deleteEvent").style.display = "none";
+            }
+            else if ( x==4 )
+            {
+                document.getElementById("deleteEvent").style.display = "block";
+                document.getElementById("createCalendar").style.display = "none";
+                document.getElementById("createEvent").style.display = "none";
+                document.getElementById("deleteCalendar").style.display = "none";
+            }
+        }
+    </script>
+
 
 </head>
 <body>
@@ -38,7 +68,36 @@
                 </div>
 
                 <div id="functions" runat="server">
+                    <asp:Label ID="CurrentUser" runat="server"></asp:Label>
+                    <br />
+                    <br />
+                    <a href="" id="create_Calendar" onclick="toggle_sub(1)">Create Calendar</a>
+                    <a href="" id="delete_Calendar" onclick="toggle_sub(3)">Delete Calendar</a>
+                    <a href="" id="create_Event" onclick="toggle_sub(2)">Create Event</a>
+                    <a href="" id="delete_Event" onclick="toggle_sub(4)">Delete Event</a>
 
+                    <br />
+                    <br />
+
+                    <div id="createCalendar">
+                        <h1>Create a new calendar</h1>
+
+                        <p>Name:</p>
+                        <asp:TextBox runat="server" ID="createCalendarName"></asp:TextBox>
+
+                        <p>Share calendar?</p>
+                        <asp:RadioButton runat="server" ID="createCalendarSharedYes" Text="Yes" GroupName="share"/>
+                        <asp:RadioButton runat="server" ID="createCalendarSharedNo" Text="No"  GroupName="share"/>
+                        
+
+                        <div id="shared" runat="server">
+
+                            <asp:TextBox ID="createCalendarSharedUser" runat="server"></asp:TextBox>
+                        </div>
+
+                        <asp:Button runat="server" OnClick="createCalendar" Text="Create" />
+                    </div>
+                    <div id="createEvent">
                     <h1>Create new event</h1>
 
                     <!-- TYPE -->
@@ -50,7 +109,7 @@
                     </asp:DropDownList>
 
                     <p>Location:</p>
-                    <asp:TextBox runat="server"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="createEventLocation"></asp:TextBox>
 
                     <p>Start time:</p>
                     <p>Year, Month, Day</p>
@@ -122,6 +181,18 @@
                     <br />
 
                     <asp:Button runat="server" Text="Create Event" OnClick="createEvent" />
+                    </div> 
+                    <div id="deleteCalendar">
+                        <h1>Delete Calendar</h1>
+
+                        <p>Select the calendar to be deleted:</p>
+                        <asp:DropDownList ID="deleteCalendarName" runat="server"></asp:DropDownList>
+
+                        <asp:Button ID="deleteCalendarExecute" runat="server" OnClick="deleteCalendarExecute_Click" />
+                    </div>
+                    <div id="deleteEvent">deleteEvent</div>
+
+
                     <asp:Button runat="server" Text="Logout" OnClick="logout" />
                 </div>
             </div>

@@ -9,16 +9,10 @@ using Newtonsoft.Json;
 /// </summary>
 public class deleteCalendar
 {
-    public String dc()
+    public String dc(calendar e)
     {
-        calendar e = new calendar();
         encryption crypt = new encryption();
         connection conn = new connection();
-
-        e.overallID = "deleteCalender";
-        e.calenderName = "My Calendar";
-        e.userName = "anha13ao";
-
 
         String jsonstring = JsonConvert.SerializeObject(e);
 
