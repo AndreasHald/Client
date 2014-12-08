@@ -51,7 +51,7 @@ public class connection
             byte[] data = new byte[2048];
 
 
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(2000);
             int recv = ns.Read(data, 0, data.Length);
             //Response.Write("Received {0} bytes from server: {1}" + totalBytesRcvd +
             String reply = Encoding.ASCII.GetString(data, 0, recv);

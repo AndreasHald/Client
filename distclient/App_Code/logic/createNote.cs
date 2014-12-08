@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Newtonsoft.Json;
 
 /// <summary>
-/// VIRKER IKKE ENDNU SOCKET WRITE EXCEPTION
+/// Summary description for createNote
 /// </summary>
-public class deleteEvent
+public class createNote
 {
-	public String dE(customevents e)
+	public String cE(note e)
 	{
         encryption crypt = new encryption();
         connection conn = new connection();

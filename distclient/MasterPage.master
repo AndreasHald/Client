@@ -27,18 +27,24 @@
                 document.getElementById("createEvent").style.display = "none";
                 document.getElementById("deleteCalendar").style.display = "none";
                 document.getElementById("deleteEvent").style.display = "none";
+                document.getElementById("createNote").style.display = "none";
+                document.getElementById("deleteNote").style.display = "none";
             }
             else if (x == 2) {
                 document.getElementById("createEvent").style.display = "block";
                 document.getElementById("createCalendar").style.display = "none";
                 document.getElementById("deleteCalendar").style.display = "none";
                 document.getElementById("deleteEvent").style.display = "none";
+                document.getElementById("createNote").style.display = "none";
+                document.getElementById("deleteNote").style.display = "none";
             }
             else if (x == 3) {
                 document.getElementById("deleteCalendar").style.display = "block";
                 document.getElementById("createCalendar").style.display = "none";
                 document.getElementById("createEvent").style.display = "none";
                 document.getElementById("deleteEvent").style.display = "none";
+                document.getElementById("createNote").style.display = "none";
+                document.getElementById("deleteNote").style.display = "none";
             }
             else if ( x==4 )
             {
@@ -46,6 +52,26 @@
                 document.getElementById("createCalendar").style.display = "none";
                 document.getElementById("createEvent").style.display = "none";
                 document.getElementById("deleteCalendar").style.display = "none";
+                document.getElementById("createNote").style.display = "none";
+                document.getElementById("deleteNote").style.display = "none";
+            }
+            else if (x==5)
+            {
+                document.getElementById("createNote").style.display = "block";
+                document.getElementById("createCalendar").style.display = "none";
+                document.getElementById("createEvent").style.display = "none";
+                document.getElementById("deleteCalendar").style.display = "none";
+                document.getElementById("deleteEvent").style.display = "none";
+                document.getElementById("deleteNote").style.display = "none";
+            }
+            else if (x==6)
+            {
+                document.getElementById("deleteNote").style.display = "block";
+                document.getElementById("createCalendar").style.display = "none";
+                document.getElementById("createEvent").style.display = "none";
+                document.getElementById("deleteCalendar").style.display = "none";
+                document.getElementById("deleteEvent").style.display = "none";
+                document.getElementById("createNote").style.display = "none";
             }
         }
     </script>
@@ -70,11 +96,12 @@
                 <div id="functions" runat="server">
                     <asp:Label ID="CurrentUser" runat="server"></asp:Label>
                     <br />
-                    <br />
                     <a href="" id="create_Calendar" onclick="toggle_sub(1)">Create Calendar</a>
                     <a href="" id="delete_Calendar" onclick="toggle_sub(3)">Delete Calendar</a>
                     <a href="" id="create_Event" onclick="toggle_sub(2)">Create Event</a>
                     <a href="" id="delete_Event" onclick="toggle_sub(4)">Delete Event</a>
+                    <a href="" id="create_Note" onclick="toggle_sub(5)">Create Note</a>
+                    <a href="" id="delete_Note" onclick="toggle_sub(6)">Delete Note</a>
 
                     <br />
                     <br />
@@ -188,9 +215,37 @@
                         <p>Select the calendar to be deleted:</p>
                         <asp:DropDownList ID="deleteCalendarName" runat="server"></asp:DropDownList>
 
-                        <asp:Button ID="deleteCalendarExecute" runat="server" OnClick="deleteCalendarExecute_Click" />
+                        <asp:Button ID="deleteCalendarExecute" runat="server" OnClick="deleteCalendarExecute_Click" Text="Delete" />
                     </div>
-                    <div id="deleteEvent">deleteEvent</div>
+                    <div id="deleteEvent">
+                        <h1>Delete Event</h1>
+                        <asp:DropDownList runat="server" ID="deleteEventName"></asp:DropDownList>
+                        <asp:Button runat="server" ID="deleteEventExecute" Text="Submit" OnClick="deleteEventExecute_Click" />
+                    </div>
+
+                    <div id="createNote">
+                        <h1>Create Note</h1>
+
+                        <p> Select which event to add a note:</p>
+                        <asp:DropDownList runat="server" ID="createNoteEvents"></asp:DropDownList>
+
+                        <br />
+                        <asp:TextBox runat="server" ID="createNoteText" Text="Enter your note:"></asp:TextBox>
+                        <br />
+                        <br />
+                        <asp:Button runat="server"  Text="Submit" OnClick="createNoteExecute" />
+
+                    </div>
+
+                    <div id="deleteNote">
+                        <h1>Delete Note</h1>
+
+                        <asp:DropDownList runat="server" ID="deleteNoteName"></asp:DropDownList>
+                        <br />
+                        <br />
+                        <asp:Button runat="server" Text="Delete" OnClick="deleteNoteExecute" />
+
+                    </div>
 
 
                     <asp:Button runat="server" Text="Logout" OnClick="logout" />
@@ -199,6 +254,7 @@
             
     </div>
     <button type="button" class="menu-button" onclick="toggle()"></button>
+    <asp:Label ID="Quoteotd" runat="server" CssClass="quoteoftheday"></asp:Label>
     <div class="container">
         
 

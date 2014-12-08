@@ -10,14 +10,10 @@ using System.Web;
 /// </summary>
 public class getEvent
 {
-	public String getEvents()
+	public String getEvents(customevents e)
     {
-        customevents e = new customevents();
         encryption crypt = new encryption();
         connection conn = new connection();
-
-        e.overallID = "getEventInfo";
-        e.CalenderID = "1";
 
         String jsonstring = JsonConvert.SerializeObject(e);
 

@@ -24,7 +24,7 @@ public class week2template : System.Web.UI.ITemplate
         {
             templateType = type;
         }
-        public int add = -28;
+        public int add = -35;
         public void InstantiateIn(System.Web.UI.Control container)
         {
             PlaceHolder ph = new PlaceHolder();

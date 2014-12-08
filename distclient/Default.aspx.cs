@@ -31,46 +31,10 @@ public partial class _Default : System.Web.UI.Page
         else
         {
 
-            // PRINT LOGIN SCREEN
-
-
-
-            /************************
-             *****   FUNCTIONS  *****
-             ***********************/
-            
-            //encryptUserID ea = new encryptUserID(); VIRKER!
-
-            //getEvent ge = new getEvent(); VIRKER!
-
-            //deleteEvent de = new deleteEvent(); VIRKER!
-            //createEvent ce = new createEvent(); VIRKER!
-
-            //createCalendar cc = new createCalendar(); VIRKER!
-            //deleteCalendar dc = new deleteCalendar(); VIRKER!
-            
-            //String uid ="2";
-
-            //getCalendar gc = new getCalendar();
-            //String t = gc.dc(uid);
-           // Response.Write(t);
-            //System.Diagnostics.Debug.WriteLine(t);
+            // REWORK LOGIN
             if (Session["username"] != null && Session["password"] != null)
             {
-
-                String usr = Session["username"].ToString();
-                String pass = Session["password"].ToString();
-
-                login l = new login();
-
-                if (l.authenticate(usr, pass))
-                {
-                        //createtable();
-                }
-                else
-                {
-                    Response.Write("you are not logged in");
-                }
+                createtable();        
             }
            
         }

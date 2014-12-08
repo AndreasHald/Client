@@ -25,7 +25,7 @@ public class week1template : System.Web.UI.ITemplate
         {
             templateType = type;
         }
-        public int add = -21;
+        public int add = -28;
         public void InstantiateIn(System.Web.UI.Control container)
         {
             PlaceHolder ph = new PlaceHolder();
@@ -84,14 +84,23 @@ public class week1template : System.Web.UI.ITemplate
     
                     break;
                 case ListItemType.Item:
+                    string userid = HttpContext.Current.Session["userID"].ToString();
+
+                    getCalendar gc = new getCalendar();
+                    getEvent ge = new getEvent();
+                    getNote gn = new getNote();
                     
-                        getEvent ge = new getEvent();
-                        //string json = new WebClient().DownloadString("http://calendar.cbs.dk/events.php/anha13ao/c69e9c9423e1154d9eea09b9a02a6a91.json");
-                        //string json = "{ 'events': [{'activityid':'BINTO1056U_XA_E14','eventid':'BINTO1056U_XA_E14_23210d53150ae6360fea5917c0ff2690_14f10086119a2403de31b781a4bcac53','type':'Exercise','title':'BINTO1056U.XA_E14','description':'Ledelse af IS - forandring, innovation og viden (XA)','start':['2014',11,'19','12','35'],'end':['2014',11,'19','14','15'],'location':'SP114'},{'activityid':'BINTO1056U_XA_E14','eventid':'BINTO1056U_XA_E14_9ab772c7350a5fb05fdab9b18ce7e8e2_fef8571772e22f692313b7d10650d22a','type':'Exercise','title':'BINTO1056U.XA_E14','description':'Ledelse af IS - forandring, innovation og viden (XA)','start':['2014',11,'20','8','00'],'end':['2014',11,'20','12','00'],'location':'SP114'},{'activityid':'BINTO1056U_XA_E14','eventid':'BINTO1056U_XA_E14_af2af4baa4be26b21136ff4f17f3e5a3_f826f8d71a5e29c2f4aace71e2be5f2a','type':'Exercise','title':'BINTO1056U.XA_E14','description':'Ledelse af IS - forandring, innovation og viden (XA)','start':['2014',9,'21','12','35'],'end':['2014',9,'21','14','15'],'location':'SP212'},{'activityid':'BINTO1056U_XA_E14','eventid':'BINTO1056U_XA_E14_ad15aa8f4c83b946c6437e808d94f82c_e7d7c1e0bc59a024dbb0b2fe037c576e','type':'Exercise','title':'BINTO1056U.XB_E14','description':'Ledelse af IS - forandring, innovation og viden (XA)','start':['2014',11,'22','12','35'],'end':['2014',11,'22','14','15'],'location':'SP114'},]}";
-                        //ESObject0 obj = JsonConvert.DeserializeObject<ESObject0>(json);
-                        //System.Diagnostics.Debug.WriteLine(json);
-                        ESObject0 obj = ge.getCBSEvents();
+
                         
+                    customevents ce = new customevents();
+                    ce.overallID = "getEventInfo";
+                    ce.CalenderID = "1";
+
+                    // ARRAYS
+
+                    var Cal = JsonConvert.DeserializeObject<List<calendar>>(gc.dc(userid));
+                    ESObject0 obj = ge.getCBSEvents();
+                    var Events = JsonConvert.DeserializeObject<List<customevents>>(ge.getEvents(ce));    
                         
                     for (int o = 0; o < days.Count; o++)
                     {
@@ -121,9 +130,9 @@ public class week1template : System.Web.UI.ITemplate
                                 m = Int32.Parse(obj.events[e].start[1]);
                                 d = Int32.Parse(obj.events[e].start[2]);
 
-                                if (checkweek(y,m,d,o))
+                                if (checkweek(y, m, d, o))
                                 {
-                                    
+
                                     sh = Int32.Parse(obj.events[e].start[3]);
                                     sm = Int32.Parse(obj.events[e].start[4]);
 
@@ -160,7 +169,11 @@ public class week1template : System.Web.UI.ITemplate
             }
             container.Controls.Add(ph);
         }
-        
+
+        public DateTime date;
+        public DateTime value;
+        public DateTime today;
+
         public List<String> removedupes(List<String> type)
         {
             type.Sort();
@@ -177,13 +190,12 @@ public class week1template : System.Web.UI.ITemplate
         
         public DateTime Gettoday(int add)
         {
-            DateTime date = DateTime.Now.AddDays(add);
+            date = DateTime.Now.AddDays(add);
             return date;
         }
 
         public bool checkweek(int y, int m, int d, int o)
         {
-            DateTime value;
             try
             {
                 value = new DateTime(y, m, d);
@@ -216,7 +228,7 @@ public class week1template : System.Web.UI.ITemplate
 
         public String daysfromtoday(String days)
         {
-            DateTime today = DateTime.Today;
+            today = DateTime.Today;
 
             //CultureInfo myCulture = new CultureInfo("da-DK");
             //myCulture.DateTimeFormat.FirstDayOfWeek = DayOfWeek.Monday;
